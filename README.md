@@ -7,3 +7,4 @@
 2) useQuery, useMutation, useIsFetching
 3) React Router for routing + loaders and actions
 4) Cache invalidation, optimistic updating
+5) Lazy loading

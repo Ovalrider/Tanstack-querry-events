@@ -6,10 +6,14 @@ import {
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./util/http.js";
 import Events from "./components/Events/Events.jsx";
-import EventDetails from "./components/Events/EventDetails.jsx";
+// import EventDetails from "./components/Events/EventDetails.jsx";
 import NewEvent from "./components/Events/NewEvent.jsx";
 import EditEvent, {loader as preloadEventLoader, action as updateEventAction} from "./components/Events/EditEvent.jsx";
+import { Suspense, lazy } from "react";
+import LoadingIndicator from "./components/UI/LoadingIndicator.jsx";
 
+
+const EventDetails = lazy(()=> import("./components/Events/EventDetails.jsx")) 
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,7 +32,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/events/:id",
-    element: <EventDetails />,
+    element: <Suspense fallback={<LoadingIndicator/>}><EventDetails /></Suspense>,
     // loader: loadEventData,
     id: "event-data",
     children: [
